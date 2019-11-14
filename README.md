@@ -6,9 +6,7 @@
 
 This is a [fonk](https://github.com/Lemoncode/fonk) microlibrary that brings validation capabilities to:
 
-// TODO: Update description and example.
-
-- Validate if a field of a form ....
+- Validate if a field of a form is a valid JSON.
 
 How to install it:
 
@@ -23,7 +21,7 @@ We have the following form model:
 ```
 const myFormValues = {
   product: 'shoes',
-  price: 20,
+  info: '{ "price": 20, "color": "red"}',
 }
 ```
 
@@ -34,7 +32,7 @@ import { isJson } from '@lemoncode/fonk-is-json-validator';
 
 const validationSchema = {
   field: {
-    price: [isJson.validator],
+    info: [isJson.validator],
   },
 };
 ```
@@ -56,7 +54,7 @@ import { isJson } from '@lemoncode/fonk-is-json-validator';
 
 const validationSchema = {
   field: {
-    price: [
+    info: [
       {
         validator: isJson.validator,
         message: 'Error message only updated for the validation schema',
