@@ -3,27 +3,31 @@ import {
   parseMessageWithCustomArgs,
 } from '@lemoncode/fonk';
 
-// TODO: Add validator type
-const VALIDATOR_TYPE = '';
+const VALIDATOR_TYPE = 'IS_JSON';
 
-// TODO: Add default message
-let defaultMessage = '';
+let defaultMessage = 'Provided value is not a valid JSON';
 export const setErrorMessage = message => (defaultMessage = message);
 
 const isDefined = value => value !== void 0 && value !== null && value !== '';
 
+const isValidJson = (possibleJson: string): boolean => {
+  try {
+    return typeof JSON.parse(possibleJson) === 'object';
+  } catch {}
+
+  return false;
+};
+
 export const validator: FieldValidationFunctionSync = fieldValidatorArgs => {
   const { value, message = defaultMessage, customArgs } = fieldValidatorArgs;
 
-  // TODO: Add validator
-  const succeeded = !isDefined(value) || ...;
+  const succeeded = !isDefined(value) || isValidJson(value);
 
   return {
     succeeded,
     message: succeeded
       ? ''
-      : // TODO: Use if it has custom args
-        parseMessageWithCustomArgs(
+      : parseMessageWithCustomArgs(
           (message as string) || defaultMessage,
           customArgs
         ),
